@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Иван Афанасьев — начинающий SOC-аналитик</title>
+  <meta name="description" content="Иван Афанасьев — начинающий SOC-аналитик. Ищу стажировку: изучаю мониторинг, расследование инцидентов, сети (TCP/IP и далее)." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#03030a; --card:#071127; --text:#ffffff; --muted:#b7c1cc; --accent-purple-1:#7c3aed; --accent-purple-2:#b892ff; --accent-purple-3:#6d28d9; --glass: rgba(255,255,255,0.04); --radius:16px; --soft-glow: 0 8px 40px rgba(124,58,237,0.14); font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(124,58,237,0.12), transparent 12%),
+        radial-gradient(600px 300px at 90% 80%, rgba(108,83,255,0.10), transparent 10%),
+        linear-gradient(180deg,#02020a 0%, #070612 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding-bottom:80px;
+      position:relative;
+      overflow-x:hidden;}
+
+    .bg-grid{position:fixed;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:0.06;
+      background-image:
+        linear-gradient(0deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 120px 120px, 120px 120px;
+      z-index:0;transform:translateZ(0);}
+
+    .floating-dots{position:fixed;right:-120px;top:10%;width:420px;height:420px;pointer-events:none;z-index:0;opacity:0.6;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(124,58,237,0.12) 0 6%, transparent 12%),
+        radial-gradient(circle at 70% 70%, rgba(182,126,255,0.10) 0 7%, transparent 14%);
+      filter:blur(28px);animation: floatSlow 12s ease-in-out infinite;}
+    .floating-dots.left{left:-180px;right:auto;top:60%;transform:scale(0.9);
+      background:
+        radial-gradient(circle at 60% 30%, rgba(108,83,255,0.10) 0 6%, transparent 12%),
+        radial-gradient(circle at 15% 70%, rgba(124,58,237,0.08) 0 7%, transparent 14%);}
+    @keyframes floatSlow{0%{transform:translateY(0) scale(1)}50%{transform:translateY(18px) scale(1.02)}100%{transform:translateY(0) scale(1)}}
+
+    .wrap{max-width:1200px;margin:36px auto;padding:28px;position:relative;z-index:1}
+    header{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .brand{display:flex;gap:14px;align-items:center}
+
+    /* logo as an image */
+    .logo-img{width:72px;height:72px;border-radius:50%;display:inline-block;object-fit:cover;border:2px solid rgba(255,255,255,0.08);box-shadow:var(--soft-glow), 0 10px 40px rgba(0,0,0,0.6);}
+
+    h1{margin:0;font-size:26px}
+    header .subtitle{font-size:13px;color:var(--muted);margin-top:6px}
+
+    .cta{display:flex;gap:10px;align-items:center}
+    .btn{padding:10px 14px;border-radius:12px;background:transparent;border:1px solid var(--glass);cursor:pointer;color:var(--text);text-decoration:none;font-weight:700}
+    .btn.primary{background:linear-gradient(90deg,var(--accent-purple-1),var(--accent-purple-2));color:var(--text);box-shadow:var(--soft-glow)}
+
+    main{display:grid;grid-template-columns:2fr 1fr;gap:22px;margin-top:28px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));padding:22px;border-radius:18px;box-shadow: 0 14px 50px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px)}
+    .hero{padding:26px;border-radius:16px;position:relative;overflow:hidden}
+
+    .stripe{height:6px;border-radius:999px;margin-top:10px}
+    .stripe.blue{background:linear-gradient(90deg,var(--accent-purple-1),var(--accent-purple-2))}
+    .stripe.green{background:linear-gradient(90deg,var(--accent-purple-2),#d6c3ff)}
+    .stripe.orange{background:linear-gradient(90deg,#c084fc,var(--accent-purple-3))}
+
+    h2{margin:0;font-size:20px;color:var(--text)}
+    .lead{font-size:15px;color:var(--text);margin-top:10px}
+    .muted{color:var(--muted);font-size:13px}
+
+    .skills-text{margin-top:18px;font-size:15px;color:var(--text);line-height:1.6}
+    .skills-text p{margin:8px 0}
+
+    .progress-section{margin-top:12px}
+    .progress-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .progress-label{min-width:180px;font-size:13px;color:var(--muted);display:flex;flex-direction:column}
+    .progress-track{flex:1;height:14px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:999px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.03)}
+    .progress-track .fill{height:100%;width:0%;border-radius:999px;transition:width 1100ms cubic-bezier(.2,.9,.2,1);display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:12px;font-weight:700;color:rgba(0,0,0,0.85);box-shadow:0 8px 26px rgba(107,70,193,0.16)}
+    .fill.g-purple{background:linear-gradient(90deg,var(--accent-purple-1),var(--accent-purple-2));color:rgba(255,255,255,0.95)}
+    .fill.g-light{background:linear-gradient(90deg,var(--accent-purple-2),#fff);color:rgba(0,0,0,0.9)}
+    .fill.g-muted{background:linear-gradient(90deg,#444,#666);color:rgba(255,255,255,0.95)}
+
+    .percent-badge{min-width:44px;text-align:right;font-weight:700;font-size:13px;color:var(--muted)}
+
+    .resume-brief{background:linear-gradient(180deg, rgba(124,58,237,0.06), rgba(124,58,237,0.02));padding:12px;border-radius:12px;border:1px solid rgba(124,58,237,0.08);box-shadow:0 8px 28px rgba(99,102,241,0.06)}
+    .tag{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.03);font-size:12px;color:var(--muted);margin-right:8px;margin-bottom:8px}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:all 0.8s cubic-bezier(.2,.9,.2,1)}
+    .reveal.active{opacity:1;transform:translateY(0)}
+
+    @media(max-width:1000px){main{grid-template-columns:1fr}header{gap:12px}.progress-label{min-width:120px}}
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="floating-dots"></div>
+  <div class="floating-dots left"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <!-- Embedded avatar image -->
+        <img class="logo-img" src="assets/avatar.png" alt="Аватар — Иван Афанасьев">
+        <div style="margin-left:12px">
+          <h1>Иван Афанасьев <span style="font-size:13px;color:var(--muted);font-weight:700;margin-left:8px">— SOC Intern (в поиске стажировки)</span></h1>
+          <div class="subtitle">Готов учиться в реальной команде. Быстро усваиваю практические навыки и довожу задания до результата.</div>
+        </div>
+      </div>
+
+      <div class="cta">
+        <a class="btn" href="mailto:ivanognyov@yandex.ru">ivanognyov@yandex.ru</a>
+        <a class="btn" href="https://t.me/xdxdtip" target="_blank">Telegram: @xdxdtip</a>
+        <a class="btn primary" href="#contact">Написать</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="card hero reveal" aria-labelledby="about-title">
+        <h2 id="about-title">Обо мне</h2>
+        <p class="lead">Меня зовут Иван Афанасьев. Я начинаю карьеру в кибербезопасности и ищу стажировку в SOC, чтобы получить практический опыт. Мне важно не только изучать теорию, но и применять знания: собирать логи, анализировать события и оформлять понятные выводы для команды.</p>
+
+        <div class="stripe blue"></div>
+
+        <section class="skills-text reveal" aria-labelledby="skills-title" style="margin-top:18px">
+          <h3 id="skills-title">Навыки и качества — коротко обо мне</h3>
+
+          <p>Я целеустремлённый и дисциплинированный: если поставлена задача — довожу её до результата, даже если приходится учиться в интенсивном режиме. Могу работать при сжатых сроках и сохранять качество работы — стрессоустойчив, не паникую в сложных ситуациях.</p>
+
+          <p>Готов перерабатывать при необходимости и брать дополнительные задачи, чтобы быстрее набирать практику. Мне нравится документировать процесс: делаю понятные заметки и отчёты, которые можно использовать в команде. Хорошо взаимодействую с наставником и коллегами — открыто принимаю фидбек и быстро внедряю правки.</p>
+
+          <div style="margin-top:10px"><strong>Компьютерные сети — уровень (в процентах):</strong></div>
+
+          <div class="progress-section" style="margin-top:10px">
+            <div class="progress-row">
+              <div class="progress-label">
+                <span style="color:var(--text);font-weight:700">Компьютерные сети</span>
+                <span class="muted" style="margin-top:2px;font-size:12px">TCP/IP, DNS, VPN, Firewall/ACL — базовые основы</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Компьютерные сети">
+                <div class="fill g-purple" data-fill="30"> </div>
+              </div>
+              <div class="percent-badge">30%</div>
+            </div>
+
+            <div style="margin-top:6px;font-size:13px;color:var(--muted)">
+              <strong>Что я знаю сейчас:</strong> базовые концепции TCP/IP, понимание DNS/VPN/простых правил Firewall.<br/>
+              <strong>Что входит в область сетей (план на изучение):</strong> маски и подсети (CIDR), IPv4/IPv6 (базовые понятия), маршрутизация, VLAN, NAT, DHCP и др.
+            </div>
+
+            <div style="margin-top:12px" class="muted"><strong>SIEM / Логирование (инструменты):</strong></div>
+
+            <div class="progress-row" style="margin-top:6px">
+              <div class="progress-label">
+                <span style="color:var(--text);font-weight:700">Splunk</span>
+                <span class="muted" style="margin-top:2px;font-size:12px">Ознакомление с интерфейсом и базовыми поисками</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Splunk">
+                <div class="fill g-light" data-fill="0"> </div>
+              </div>
+              <div class="percent-badge">0%</div>
+            </div>
+
+            <div class="progress-row">
+              <div class="progress-label">
+                <span style="color:var(--text);font-weight:700">Elastic (ELK)</span>
+                <span class="muted" style="margin-top:2px;font-size:12px">Вводные знания / в процессе изучения</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Elastic">
+                <div class="fill g-purple" data-fill="0"> </div>
+              </div>
+              <div class="percent-badge">0%</div>
+            </div>
+
+            <div style="margin-top:12px" class="muted"><strong>ОС:</strong> Linux — уровень обычного пользователя (навигация, базовые команды).</div>
+
+            <div class="progress-row" style="margin-top:6px">
+              <div class="progress-label">
+                <span style="color:var(--text);font-weight:700">Linux</span>
+                <span class="muted" style="margin-top:2px;font-size:12px">Обычный пользователь</span>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Linux">
+                <div class="fill g-purple" data-fill="20"> </div>
+              </div>
+              <div class="percent-badge">20%</div>
+            </div>
+
+            <div style="margin-top:8px" class="muted">Новые инструменты помечены как «в процессе изучения», чтобы не утверждать о полном владении ими.</div>
+          </div>
+        </section>
+
+        <div class="stripe green"></div>
+
+        <section class="reveal" style="margin-top:18px">
+          <h3>Как я хочу получать знания</h3>
+          <p class="muted" style="margin-top:8px">Практика + документирование: TryHackMe, мини-лаборатория, Wireshark, простые SIEM-правила и write-up'ы.</p>
+        </section>
+
+      </section>
+
+      <aside class="card reveal" id="contact">
+        <h3>Контакты</h3>
+        <div class="muted" style="margin-top:8px">Лучше всего связаться через Telegram или e-mail — отвечаю оперативно.</div>
+        <p style="margin-top:10px"><strong>Email:</strong> ivanognyov@yandex.ru</p>
+        <p><strong>Телефон:</strong> +7 915 984 14 83</p>
+        <p><strong>Telegram:</strong> <a href="https://t.me/xdxdtip" style="color:var(--accent-purple-2);text-decoration:none">@xdxdtip</a></p>
+
+        <div style="margin-top:14px" class="resume-brief">
+          <strong style="display:block;margin-bottom:6px">Краткое резюме</strong>
+          <div style="font-size:14px;color:var(--muted)">Студент / начинающий специалист в кибербезопасности, ищу стажировку в SOC. Прохожу практику по сбору логов, базовому анализу трафика и созданию простых правил в SIEM.</div>
+
+          <div style="margin-top:10px">
+            <div class="tag">Готовность: полный/частичный график</div>
+            <div class="tag">Опыт: учебные проекты</div>
+            <div class="tag">Языки: русский</div>
+          </div>
+
+          <div style="margin-top:10px;font-size:13px;color:var(--muted)">
+            <strong>Цель:</strong> получить практический опыт в SOC, участвовать в триаже инцидентов и сборе логов.
+          </div>
+        </div>
+
+        <div style="margin-top:16px;display:flex;gap:8px">
+          <a class="btn" href="#projects" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">Учебные проекты</a>
+          <a class="btn primary" href="mailto:ivanognyov@yandex.ru">Написать</a>
+        </div>
+      </aside>
+
+      <section class="card reveal" id="projects" style="grid-column:1 / -1; margin-top:10px">
+        <h3>Проекты и портфолио (что я делаю и буду делать)</h3>
+        <p class="muted" style="margin-top:8px">Учебные проекты: лаборатория логов, Wireshark, простые правила для SIEM и write-up'ы.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px">
+          <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px">
+            <strong>Лаборатория логов</strong>
+            <div class="muted" style="margin-top:6px">Nginx + лог-коллектор + визуализация. Практика по сбору и базовому анализу.</div>
+          </div>
+
+          <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px">
+            <strong>Wireshark: практическая работа</strong>
+            <div class="muted" style="margin-top:6px">Захват трафика, фильтрация HTTP/DNS, документирование подозрительных сессий.</div>
+          </div>
+
+          <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px">
+            <strong>SIEM: простые правила</strong>
+            <div class="muted" style="margin-top:6px">Создание учебных правил и write-up'ы (Splunk / Elastic в планах).</div>
+          </div>
+
+          <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px">
+            <strong>Write-up'ы</strong>
+            <div class="muted" style="margin-top:6px">Отчёты по учебным кейсам: шаги, выводы, рекомендации.</div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <footer class="reveal" style="margin-top:28px;text-align:center">
+      <p class="muted">© Иван Афанасьев — начинающий SOC-аналитик.<br/>С уважением, Doubthek1ng</p>
+    </footer>
+  </div>
+
+  <script>
+    const fills = { '30': 'linear-gradient(90deg,var(--accent-purple-1),var(--accent-purple-2))', '20': 'linear-gradient(90deg,var(--accent-purple-2),#ffffff)', '0': 'linear-gradient(90deg,#444,#666)', '5': 'linear-gradient(90deg,var(--accent-purple-3),var(--accent-purple-2))' };
+
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.progress-track .fill').forEach((el, i) => {const value = Math.max(0, Math.min(100, Number(el.getAttribute('data-fill')) || 0)); const color = fills[String(value)] || 'linear-gradient(90deg,var(--accent-purple-1),var(--accent-purple-2))'; el.style.background = color; if (value > 6) el.textContent = value + '%'; setTimeout(() => { el.style.width = value + '%'; }, i * 140 + 220); });
+
+      const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('active'); observer.unobserve(entry.target); } }); }, {threshold: 0.08});
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+
+    function scrollToProjects(){
+      document.getElementById('projects').scrollIntoView({behavior:'smooth'});
+    }
+  </script>
+</body>
+</html>
